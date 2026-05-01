@@ -1,1 +1,75 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Nerko One';
+  src: url('/fonts/Nerko_One/NerkoOne-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Mulish';
+  src: url('/fonts/Mulish/static/Mulish-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Nokora';
+  src: url('/fonts/Nokora/static/Nokora-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --bg-color: #322938;
+  --text-light: #ffffff;
+  --text-dark: #2b2230;
+  --primary-color: #FFB770;
+  --primary-color-hover: #FFCFA1;
+  --card-dark: #413746;
+  --card-dark-hover: #4d4153;
+  --card-light: #f9f6fc;
+  --card-light-hover: #f4ecf9;
+  --font-heading: 'Nerko One', cursive, sans-serif;
+  --font-body: 'Mulish', sans-serif;
+  --font-button: 'Nokora', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-light);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2 {
+  font-family: var(--font-heading);
+  font-weight: normal;
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+p {
+  font-family: var(--font-body);
+}
+
+button {
+  font-family: var(--font-button);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

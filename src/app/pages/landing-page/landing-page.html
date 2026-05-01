@@ -1,0 +1,99 @@
+<header class="header">
+  <div class="container">
+    <img src="assets/icons/logo-orange.svg" alt="PollApp Logo" class="logo">
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Collect Feedback,<br>Unlock Ideas</h1>
+      <p>Create and share surveys in minutes – from team events to workplace culture. Collect opinions, engage your audience, and turn feedback into action.</p>
+      
+      <button class="btn-primary new-survey-btn">
+        <span class="btn-text">New survey</span>
+        <svg class="btn-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 7V17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="hero-visual">
+      <img src="assets/img/visual/visual.svg" alt="Survey Illustration" class="main-visual">
+      <img src="assets/img/visual/visual-talking-bubble.svg" alt="" class="float-icon bubble">
+      <img src="assets/img/visual/visual-question-mark.svg" alt="" class="float-icon question">
+      <img src="assets/img/visual/visual-star.svg" alt="" class="float-icon star">
+      <img src="assets/img/visual/visual-check.svg" alt="" class="float-icon check">
+    </div>
+  </section>
+
+  <section class="surveys-section">
+    <h2 class="section-title">Your surveys</h2>
+    
+    <div class="ending-soon">
+      <h3>Ending soon surveys</h3>
+      <div class="horizontal-scroll">
+        <div class="card card-light">
+          <div class="card-body">
+            <div class="card-category">Team activities</div>
+            <h4 class="card-title">Let’s Plan the<br>Next Team Event<br>Together</h4>
+          </div>
+          <div class="badge">Ends in 1 Day</div>
+        </div>
+        
+        <div class="card card-light">
+          <div class="card-body">
+            <div class="card-category">Health & Wellness</div>
+            <h4 class="card-title">Fit & wellness<br>survey!</h4>
+          </div>
+          <div class="badge">Ends in 2 Days</div>
+        </div>
+        
+        <div class="card card-light">
+          <div class="card-body">
+            <div class="card-category">Gaming & Entertainment</div>
+            <h4 class="card-title">Gaming habits<br>and favorite<br>games!</h4>
+          </div>
+          <div class="badge">Ends in 3 Days</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="survey-list-header">
+      <div class="tabs">
+        <button class="tab active">Active survey</button>
+        <button class="tab">Past survey</button>
+      </div>
+      <div class="sort-dropdown-container">
+        <div class="sort" (click)="toggleDropdown()" [class.open]="isDropdownOpen">
+          <span>Sort by categories</span>
+          <img src="assets/icons/arrow-dropdown-white.svg" alt="" class="arrow-icon white-arrow">
+          <img src="assets/icons/arrow-dropdown-orange.svg" alt="" class="arrow-icon orange-arrow">
+        </div>
+        @if(selectedCategory) {
+          <div class="selected-category">{{selectedCategory}}</div>
+        }
+        @if(isDropdownOpen) {
+          <div class="dropdown-menu">
+            @for(category of categories; track category) {
+              <div class="dropdown-item" (click)="selectCategory(category)">{{category}}</div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+    
+    <div class="vertical-list">
+      @for(survey of surveys; track survey.title) {
+        <div class="card card-dark">
+          <div class="card-content">
+            <div class="card-category">{{survey.category}}</div>
+            <h4 class="card-title">{{survey.title}}</h4>
+          </div>
+          <div class="badge">Ends in {{survey.endsIn}}</div>
+        </div>
+      }
+    </div>
+  </section>
+</main>
