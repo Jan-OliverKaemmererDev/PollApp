@@ -366,6 +366,7 @@
 
   &:hover {
     background-color: var(--card-dark-hover);
+    cursor: pointer;
     
     &::after {
       content: '';

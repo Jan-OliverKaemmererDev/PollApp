@@ -29,6 +29,17 @@ export class SupabaseService {
     return data;
   }
 
+  async getSurveyById(id: string) {
+    const { data, error } = await this.supabase
+      .from('surveys')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
   async getQuestions(surveyId: string) {
     const { data, error } = await this.supabase
       .from('questions')

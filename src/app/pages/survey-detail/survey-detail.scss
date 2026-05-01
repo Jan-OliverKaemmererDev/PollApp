@@ -1,0 +1,317 @@
+:host {
+  display: block;
+  background-color: white;
+  min-height: 100vh;
+  color: var(--text-dark);
+
+  p {
+    font-family: var(--font-body);
+  }
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 100px;
+  max-width: 1600px;
+  margin: 0 auto;
+  background-color: transparent;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+
+    .logo-img {
+      height: 40px;
+      width: auto;
+    }
+  }
+
+  .btn-create {
+    background-color: var(--primary-color-hover);
+    color: var(--text-dark);
+    font-family: var(--font-button);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+
+    .btn-text {
+      white-space: nowrap;
+    }
+
+    .btn-icon {
+      width: 0;
+      opacity: 0;
+      margin-left: 0;
+      transform: translateX(-10px) rotate(-45deg);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    &:hover {
+      background-color: var(--primary-color);
+      padding-right: 16px;
+
+      .btn-icon {
+        width: 24px;
+        opacity: 1;
+        margin-left: 8px;
+        transform: translateX(0) rotate(0);
+      }
+    }
+  }
+}
+
+.survey-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+  padding: 0 100px 100px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.survey-card {
+  background-color: #f3f0f5;
+  border-radius: 24px;
+  border-top-right-radius: 140px;
+  padding: 60px;
+  color: var(--text-dark);
+
+  .badge-published {
+    background-color: var(--primary-color-hover);
+    color: var(--text-dark);
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .survey-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 16px;
+  }
+
+  .survey-title {
+    font-family: var(--font-heading);
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    line-height: 1.1;
+  }
+
+  .survey-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 48px;
+    max-width: 800px;
+  }
+
+  .questions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+  }
+
+  .question-text {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .question-subtitle {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 24px;
+  }
+
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Custom Checkbox */
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: transparent;
+      border: 2px solid var(--text-dark);
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    &:hover input ~ .checkmark {
+      background-color: rgba(0,0,0,0.05);
+    }
+
+    input:checked ~ .checkmark {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    .checkbox-container .checkmark:after {
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+
+  .btn-complete {
+    background-color: var(--primary-color-hover);
+    color: var(--text-dark);
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin-left: auto;
+
+    &:hover:not(:disabled) {
+      background-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.results-aside {
+  padding-top: 60px;
+
+  .results-title {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    margin-bottom: 16px;
+    
+    .live {
+      color: var(--primary-color-hover);
+    }
+  }
+
+  .no-results-msg {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 100px;
+  }
+
+  .empty-state {
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 100px;
+  }
+
+  .results-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .result-question-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .result-item {
+    margin-bottom: 12px;
+  }
+
+  .result-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #666;
+  }
+
+  .progress-bar-container {
+    height: 12px;
+    background-color: #eee;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background-color: var(--primary-color-hover);
+    border-radius: 6px;
+    transition: width 1s ease-out;
+  }
+}
+
+@media (max-width: 1200px) {
+  .survey-detail-container {
+    grid-template-columns: 1fr;
+    padding: 0 40px 40px;
+  }
+  
+  .main-header {
+    padding: 24px 40px;
+  }
+
+  .survey-card .questions-grid {
+    grid-template-columns: 1fr;
+  }
+}

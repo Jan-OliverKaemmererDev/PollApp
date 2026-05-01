@@ -1,0 +1,79 @@
+<header class="main-header">
+  <div class="logo-container" routerLink="/">
+    <img src="assets/icons/logo-purple.svg" alt="Poll App" class="logo-img">
+  </div>
+  <button class="btn-create" routerLink="/">
+    <span class="btn-text">Create survey</span>
+    <svg class="btn-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 7V17M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+</header>
+
+<main class="survey-detail-container">
+  <section class="survey-card" *ngIf="survey()">
+    <div class="survey-header">
+      <div class="badge-published">Published</div>
+      <div class="survey-info">
+        <span class="date">Ends on 01.09.2025</span>
+        <span class="category">Category: {{survey().category}}</span>
+      </div>
+      <h1 class="survey-title">{{survey().title}}</h1>
+      <p class="survey-description">
+        We want to create team activities that everyone will enjoy – share your preferences and ideas in our survey to help us plan better experiences together.
+      </p>
+    </div>
+
+    <div class="questions-grid">
+      <div class="question-block" *ngFor="let q of questions(); let i = index">
+        <h3 class="question-text">{{i + 1}}. {{q.question_text}}</h3>
+        <p class="question-subtitle" *ngIf="q.subtitle">{{q.subtitle}}</p>
+        
+        <div class="options-list">
+          <div class="option-item" *ngFor="let opt of q.options">
+            <label class="checkbox-container">
+              <input type="checkbox" [disabled]="hasAnswers()">
+              <span class="checkmark"></span>
+              <span class="option-label">{{opt.label}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-complete" (click)="completeSurvey()" [disabled]="hasAnswers()">Complete survey</button>
+    </div>
+  </section>
+
+  <aside class="results-aside">
+    <h2 class="results-title">Survey results <span class="live">LIVE</span></h2>
+    
+    <div class="results-content">
+      <ng-container *ngIf="!hasAnswers()">
+        <p class="no-results-msg">Results will be shown here after participants complete the survey.</p>
+        <div class="empty-state">
+          <span>There are no answears yet.</span>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="hasAnswers()">
+        <div class="results-list">
+          <div class="result-block" *ngFor="let q of questions(); let i = index">
+            <h4 class="result-question-title">{{i + 1}}. {{q.question_text}}</h4>
+            <div class="result-item" *ngFor="let opt of q.options">
+              <div class="result-label-row">
+                <span class="opt-id">{{opt.label.split('.')[0]}}</span>
+                <span class="opt-percentage">{{opt.percentage}}%</span>
+              </div>
+              <div class="progress-bar-container">
+                <div class="progress-bar" [style.width.%]="opt.percentage"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </aside>
+</main>

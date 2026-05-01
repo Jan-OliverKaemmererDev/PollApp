@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { SupabaseService } from '../../shared/services/supabase';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './landing-page.html',
   styleUrl: './landing-page.scss',
 })
-export class LandingPage {
+export class LandingPage implements OnInit {
+  private supabaseService = inject(SupabaseService);
+  private router = inject(Router);
+
   isDropdownOpen = false;
   selectedCategory: string | null = null;
   categories = [
@@ -18,18 +23,16 @@ export class LandingPage {
     'Technology & Innovation'
   ];
 
-  surveys = [
-    { title: 'Let’s Plan the Next Team Event Together', category: 'Team activities', endsIn: '1 Day' },
-    { title: 'Gaming habits and favorite games!', category: 'Gaming', endsIn: '3 Days' },
-    { title: 'Healthier future: Fit & wellness survey!', category: 'Healthy Lifestyle', endsIn: '2 Days' },
-    { title: 'Quarterly Feedback Loop', category: 'Team activities', endsIn: '5 Days' },
-    { title: 'New Tech Stack Workshop', category: 'Education & Learning', endsIn: '7 Days' },
-    { title: 'Coffee vs Tea: The Office Debate', category: 'Lifestyle & Preferences', endsIn: '1 Day' },
-    { title: 'Best Console of 2026', category: 'Gaming & Entertainment', endsIn: '4 Days' },
-    { title: 'Remote Work Ergonomics', category: 'Health & Wellness', endsIn: '10 Days' },
-    { title: 'Summer Party Ideas', category: 'Team activities', endsIn: '2 Days' },
-    { title: 'Learning Path Survey', category: 'Education & Learning', endsIn: '6 Days' }
-  ];
+  surveys = signal<any[]>([]);
+
+  async ngOnInit() {
+    try {
+      const data = await this.supabaseService.getSurveys();
+      this.surveys.set(data || []);
+    } catch (error) {
+      console.error('Error fetching surveys:', error);
+    }
+  }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
