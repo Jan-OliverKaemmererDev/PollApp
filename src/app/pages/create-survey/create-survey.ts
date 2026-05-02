@@ -116,7 +116,7 @@ export class CreateSurvey {
 
     const newQuestions = formValue.questions.map((q: any) => ({
       question_text: q.question_text,
-      subtitle: q.allowMultiple ? 'Allow multiple answers.' : null,
+      subtitle: q.allowMultiple ? 'Allow multiple answers' : null,
       options: q.options
     }));
 

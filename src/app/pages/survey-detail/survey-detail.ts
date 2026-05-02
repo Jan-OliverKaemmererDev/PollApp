@@ -16,7 +16,8 @@ export class SurveyDetail implements OnInit {
 
   survey = signal<any>(null);
   questions = signal<any[]>([]);
-  hasAnswers = signal<boolean>(false); // Toggle this to show results
+  hasAnswers = signal<boolean>(false);
+  selectedOptions = signal<Record<number, string[]>>({}); // Key: question index or ID, Value: array of selected labels
 
   async ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -25,13 +26,41 @@ export class SurveyDetail implements OnInit {
         const surveyData = await this.supabaseService.getSurveyById(id);
         this.survey.set(surveyData);
         
-        // Fetch real questions if they exist
         const questionData = await this.supabaseService.getQuestions(id);
         this.questions.set(questionData || []);
       } catch (error) {
         console.error('Error loading survey:', error);
       }
     }
+  }
+
+  toggleOption(questionIndex: number, optionLabel: string) {
+    if (this.hasAnswers()) return;
+
+    const question = this.questions()[questionIndex];
+    const sub = question.subtitle?.toLowerCase() || '';
+    const isMultiple = sub.includes('multiple') || sub.includes('more than one');
+    
+    const current = { ...this.selectedOptions() };
+    let selected = current[questionIndex] || [];
+
+    if (isMultiple) {
+      if (selected.includes(optionLabel)) {
+        selected = selected.filter(l => l !== optionLabel);
+      } else {
+        selected = [...selected, optionLabel];
+      }
+    } else {
+      // Single choice logic
+      selected = [optionLabel];
+    }
+
+    current[questionIndex] = selected;
+    this.selectedOptions.set(current);
+  }
+
+  isOptionSelected(questionIndex: number, optionLabel: string): boolean {
+    return (this.selectedOptions()[questionIndex] || []).includes(optionLabel);
   }
 
   completeSurvey() {

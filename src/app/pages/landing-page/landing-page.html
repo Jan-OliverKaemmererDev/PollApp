@@ -34,7 +34,7 @@
     <div class="ending-soon">
       <h3>Ending soon surveys</h3>
       <div class="horizontal-scroll">
-        @for(survey of surveys().slice(0, 3); track survey.title) {
+        @for(survey of endingSoonSurveys(); track survey.id) {
           <div class="card card-light" [routerLink]="['/survey', survey.id]">
             <div class="card-body">
               <div class="card-category">{{survey.category}}</div>
@@ -42,14 +42,16 @@
             </div>
             <div class="badge">Ends in {{survey.ends_in}}</div>
           </div>
+        } @empty {
+          <div class="no-surveys-light">No surveys ending soon.</div>
         }
       </div>
     </div>
     
     <div class="survey-list-header">
       <div class="tabs">
-        <button class="tab active">Active survey</button>
-        <button class="tab">Past survey</button>
+        <button class="tab" [class.active]="activeFilter() === 'active'" (click)="toggleFilter('active')">Active survey</button>
+        <button class="tab" [class.active]="activeFilter() === 'past'" (click)="toggleFilter('past')">Past survey</button>
       </div>
       <div class="sort-dropdown-container">
         <div class="sort" (click)="toggleDropdown()" [class.open]="isDropdownOpen">
@@ -57,8 +59,8 @@
           <img src="assets/icons/arrow-dropdown-white.svg" alt="" class="arrow-icon white-arrow">
           <img src="assets/icons/arrow-dropdown-orange.svg" alt="" class="arrow-icon orange-arrow">
         </div>
-        @if(selectedCategory) {
-          <div class="selected-category">{{selectedCategory}}</div>
+        @if(selectedCategory()) {
+          <div class="selected-category">{{selectedCategory()}}</div>
         }
         @if(isDropdownOpen) {
           <div class="dropdown-menu">
@@ -71,7 +73,7 @@
     </div>
     
     <div class="vertical-list">
-      @for(survey of surveys(); track survey.title) {
+      @for(survey of filteredSurveys(); track survey.id) {
         <div class="card card-dark" [routerLink]="['/survey', survey.id]">
           <div class="card-content">
             <div class="card-category">{{survey.category}}</div>
@@ -79,6 +81,8 @@
           </div>
           <div class="badge">Ends in {{survey.ends_in}}</div>
         </div>
+      } @empty {
+        <div class="no-surveys">No surveys found in this category.</div>
       }
     </div>
   </section>

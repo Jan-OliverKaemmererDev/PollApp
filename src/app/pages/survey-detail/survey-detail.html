@@ -26,14 +26,19 @@
     </div>
 
     <div class="questions-grid">
-      <div class="question-block" *ngFor="let q of questions(); let i = index">
+      <div class="question-block" 
+           *ngFor="let q of questions(); let i = index"
+           [class.single-choice]="!(q.subtitle?.toLowerCase()?.includes('multiple') || q.subtitle?.toLowerCase()?.includes('more than one'))">
         <h3 class="question-text">{{i + 1}}. {{q.question_text}}</h3>
         <p class="question-subtitle" *ngIf="q.subtitle">{{q.subtitle}}</p>
         
         <div class="options-list">
           <div class="option-item" *ngFor="let opt of q.options">
             <label class="checkbox-container">
-              <input type="checkbox" [disabled]="hasAnswers()">
+              <input type="checkbox" 
+                     [disabled]="hasAnswers()"
+                     [checked]="isOptionSelected(i, opt.label)"
+                     (change)="toggleOption(i, opt.label)">
               <span class="checkmark"></span>
               <span class="option-label">{{opt.label}}</span>
             </label>
