@@ -1,4 +1,4 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,12 +16,13 @@ export class CreateSurvey {
   private fb = inject(FormBuilder);
   private supabaseService = inject(SupabaseService);
   private router = inject(Router);
+  private cdr = inject(ChangeDetectorRef);
 
   surveyForm: FormGroup;
   categories = ['Team activities', 'Work environment', 'Feedback', 'General'];
-  showToast = false;
   isCategoryDropdownOpen = false;
   isPublishing = false;
+  showToast = false;
 
   constructor() {
     this.surveyForm = this.fb.group({
@@ -121,12 +122,12 @@ export class CreateSurvey {
 
     try {
       await this.supabaseService.createSurvey(newSurvey, newQuestions);
+      this.isPublishing = false;
       this.showToast = true;
+      this.cdr.detectChanges();
       setTimeout(() => {
-        this.showToast = false;
-        this.isPublishing = false;
-        this.router.navigate(['/']);
-      }, 2000);
+        this.closeToast();
+      }, 2500);
     } catch (error) {
       console.error('Error publishing survey:', error);
       this.isPublishing = false;
@@ -148,5 +149,10 @@ export class CreateSurvey {
 
   clearField(controlName: string) {
     this.surveyForm.get(controlName)?.setValue('');
+  }
+
+  closeToast() {
+    this.showToast = false;
+    this.router.navigate(['/']);
   }
 }

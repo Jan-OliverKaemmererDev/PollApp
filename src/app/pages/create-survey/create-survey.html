@@ -1,12 +1,3 @@
-<!-- Overlay + Toast -->
-<ng-container *ngIf="showToast">
-  <div class="survey-overlay" (click)="showToast = false"></div>
-  <div class="survey-toast">
-    <span class="survey-toast__text">Your survey is now<br>published</span>
-    <button class="survey-toast__close" (click)="showToast = false">✕</button>
-  </div>
-</ng-container>
-
 <div class="create-survey-page">
   <div class="survey-form-container">
     <div class="form-header">
@@ -145,3 +136,9 @@
   </div>
 </div>
 
+<!-- Toast Overlay & Notification -->
+<div class="toast-overlay" *ngIf="showToast" (click)="closeToast()"></div>
+<div class="toast-notification" *ngIf="showToast">
+  <span class="toast-message">Your survey is now published</span>
+  <button class="toast-close" (click)="closeToast()">✕</button>
+</div>
