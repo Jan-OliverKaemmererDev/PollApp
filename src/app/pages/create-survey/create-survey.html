@@ -1,3 +1,12 @@
+<!-- Overlay + Toast -->
+<ng-container *ngIf="showToast">
+  <div class="survey-overlay" (click)="showToast = false"></div>
+  <div class="survey-toast">
+    <span class="survey-toast__text">Your survey is now<br>published</span>
+    <button class="survey-toast__close" (click)="showToast = false">✕</button>
+  </div>
+</ng-container>
+
 <div class="create-survey-page">
   <div class="survey-form-container">
     <div class="form-header">
@@ -14,24 +23,42 @@
         <div class="grid-item info-block">
           <div class="form-group">
             <label>Survey name</label>
-            <div class="input-with-icon">
+            <div class="input-with-delete">
               <input type="text" formControlName="title">
+              <button type="button" class="btn-icon-only" (click)="clearField('title')">
+                <img src="assets/icons/delete.svg" alt="Delete" class="icon-default">
+                <img src="assets/icons/delete-hover.svg" alt="Delete Hover" class="icon-hover">
+              </button>
             </div>
           </div>
           
           <div class="form-row">
             <div class="form-group">
               <label>Set end date <span class="optional">(optional)</span></label>
-              <div class="input-with-icon">
+              <div class="input-with-delete">
                 <input type="text" formControlName="ends_in">
+                <button type="button" class="btn-icon-only" (click)="clearField('ends_in')">
+                  <img src="assets/icons/delete.svg" alt="Delete" class="icon-default">
+                  <img src="assets/icons/delete-hover.svg" alt="Delete Hover" class="icon-hover">
+                </button>
               </div>
             </div>
-            <div class="form-group">
-              <label>Choose category</label>
-              <select formControlName="category">
-                <option value="" disabled selected></option>
-                <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
-              </select>
+            <div class="form-group category-group">
+              <div class="category-dropdown-container">
+                <div class="category-header" (click)="toggleCategoryDropdown()" [class.open]="isCategoryDropdownOpen">
+                  <span>Choose category</span>
+                  <img src="assets/icons/arrow-dropdown-white.svg" alt="Arrow" class="arrow-icon white-arrow">
+                  <img src="assets/icons/arrow-dropdown-orange.svg" alt="Arrow" class="arrow-icon orange-arrow">
+                </div>
+                <div class="selected-category-text" *ngIf="surveyForm.get('category')?.value">
+                  {{ surveyForm.get('category')?.value }}
+                </div>
+                <div class="dropdown-menu" *ngIf="isCategoryDropdownOpen">
+                  <div class="dropdown-item" *ngFor="let cat of categories" (click)="selectCategory(cat)">
+                    {{cat}}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -40,7 +67,13 @@
         <div class="grid-item desc-block">
           <div class="form-group">
             <label>Describing text <span class="optional">(optional)</span></label>
-            <textarea formControlName="description"></textarea>
+            <div class="input-with-delete">
+              <textarea formControlName="description"></textarea>
+              <button type="button" class="btn-icon-only textarea-btn" (click)="clearField('description')">
+                <img src="assets/icons/delete.svg" alt="Delete" class="icon-default">
+                <img src="assets/icons/delete-hover.svg" alt="Delete Hover" class="icon-hover">
+              </button>
+            </div>
           </div>
         </div>
 
@@ -49,13 +82,12 @@
           <div class="grid-item question-block" *ngFor="let question of questions.controls; let i = index" [formGroupName]="i">
             <div class="question-header">
               <label>{{i + 1}}. Question</label>
-              <button type="button" class="btn-icon-only" (click)="removeQuestion(i)" *ngIf="questions.length > 1">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+              <button type="button" class="btn-icon-only" (click)="removeQuestion(i)">
+                <img src="assets/icons/delete.svg" alt="Delete" class="icon-default">
+                <img src="assets/icons/delete-hover.svg" alt="Delete Hover" class="icon-hover">
               </button>
             </div>
-            <div class="input-with-icon">
+            <div class="input-with-delete">
               <input type="text" formControlName="question_text">
             </div>
 
@@ -70,12 +102,11 @@
             <div formArrayName="options" class="answers-list">
               <div class="answer-item" *ngFor="let option of getAnswers(i).controls; let j = index" [formGroupName]="j">
                 <span class="answer-letter">{{getAlphabetLetter(j)}}</span>
-                <div class="input-with-icon">
+                <div class="input-with-delete">
                   <input type="text" formControlName="label">
-                  <button type="button" class="btn-icon-only" (click)="removeAnswer(i, j)" *ngIf="getAnswers(i).length > 2">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                  <button type="button" class="btn-icon-only" (click)="removeAnswer(i, j)">
+                    <img src="assets/icons/delete.svg" alt="Delete" class="icon-default">
+                    <img src="assets/icons/delete-hover.svg" alt="Delete Hover" class="icon-hover">
                   </button>
                 </div>
               </div>
@@ -105,16 +136,12 @@
       </div>
 
       <div class="form-footer">
-        <button type="button" class="btn-publish" (click)="publish()">Publish</button>
+        <button type="button" class="btn-publish" (click)="publish()" [disabled]="isPublishing">
+          <span class="btn-text">Publish</span>
+          <img src="assets/icons/publish-check.svg" alt="Publish" class="btn-icon">
+        </button>
       </div>
     </form>
   </div>
 </div>
 
-<!-- Toast Notification -->
-<div class="toast-container" *ngIf="showToast">
-  <div class="toast">
-    <span class="toast-text">Your survey is now<br>published</span>
-    <button class="btn-close-toast" (click)="showToast = false">✕</button>
-  </div>
-</div>
