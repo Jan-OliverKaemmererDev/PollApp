@@ -44,9 +44,35 @@ export class SupabaseService {
     const { data, error } = await this.supabase
       .from('questions')
       .select('*')
-      .eq('survey_id', surveyId);
+      .eq('survey_id', surveyId)
+      .order('id', { ascending: true });
 
     if (error) throw error;
     return data;
+  }
+
+  async createSurvey(survey: any, questions: any[]) {
+    // 1. Insert survey
+    const { data: newSurvey, error: surveyError } = await this.supabase
+      .from('surveys')
+      .insert([survey])
+      .select()
+      .single();
+
+    if (surveyError) throw surveyError;
+
+    // 2. Insert questions with the new survey ID
+    const questionsWithSurveyId = questions.map(q => ({
+      ...q,
+      survey_id: newSurvey.id
+    }));
+
+    const { error: questionsError } = await this.supabase
+      .from('questions')
+      .insert(questionsWithSurveyId);
+
+    if (questionsError) throw questionsError;
+
+    return newSurvey;
   }
 }
