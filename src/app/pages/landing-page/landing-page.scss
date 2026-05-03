@@ -139,7 +139,7 @@
   h3 {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: 24px;
+    font-size: 32px;
     margin-bottom: 24px;
   }
 
@@ -177,7 +177,7 @@
   background-color: var(--card-light);
   color: var(--text-dark);
   width: 320px;
-  height: 380px;
+  height: 330px;
   padding: 40px 32px;
   border-top-right-radius: 80px;
   display: flex;
@@ -188,7 +188,7 @@
 
   .card-category {
     font-size: 14px;
-    color: #888;
+    color: var(--text-dark);
     margin-bottom: 12px;
     text-transform: capitalize;
   }
@@ -199,24 +199,30 @@
     font-size: 28px;
     line-height: 1.2;
     color: var(--text-dark);
-    /* Allow wrapping and limit lines if necessary, though user asked for wrapping */
     word-wrap: break-word;
     overflow: hidden;
   }
 
   .badge {
     align-self: flex-start;
-    background-color: #FEE9D4;
-    font-size: 12px;
+    background-color: #FFCFA1;
+    font-size: 14px;
     font-weight: 700;
-    padding: 6px 12px;
-    border-radius: 4px;
+    padding: 3px 12px;
+    border-radius: 0px 16px 0px 0px;
+    transition: background-color 0.3s ease;
   }
+
 
   &:hover {
     background-color: var(--card-light-hover);
     cursor: pointer;
+    
+    .badge {
+      background-color: #FFB770;
+    }
   }
+
 }
 
 .survey-list-header {
@@ -224,9 +230,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding-bottom: 16px;
+  margin-bottom: 32px;
+
 
   .tabs {
     display: flex;
@@ -236,7 +241,7 @@
       background-color: #FEE9D4;
       color: var(--text-dark);
       font-size: 16px;
-      padding: 8px 16px;
+      padding: 4px 16px;
       border-radius: 20px;
       transition: all 0.2s ease;
       
@@ -276,7 +281,8 @@
         transition: transform 0.3s ease;
       }
 
-      &:hover, &.open {
+      &:hover, &.open, &.active {
+
         background-color: var(--card-dark);
         
         .white-arrow {
@@ -337,21 +343,23 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  max-height: 480px; /* Approximately 3 rows */
+  max-height: 535px;
   overflow-y: auto;
   padding-right: 16px;
 
   /* Custom scrollbar */
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 12px;
   }
   &::-webkit-scrollbar-track {
     background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 10px;
+    background: url('/assets/icons/scroll-bar.svg') no-repeat center;
+    background-size: contain;
   }
+
+
 }
 
 .card-dark {
@@ -377,7 +385,7 @@
     font-size: 12px;
     font-weight: 600;
     padding: 4px 12px;
-    border-radius: 4px;
+    border-radius: 0px 16px 0px 0px !important;
     border-top-right-radius: 12px;
   }
 
@@ -398,19 +406,8 @@
   &:hover {
     background-color: var(--card-dark-hover);
     cursor: pointer;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      right: -8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 4px;
-      height: 40px;
-      background-color: var(--primary-color);
-      border-radius: 4px;
-    }
   }
+
 }
 
 @media (max-width: 992px) {

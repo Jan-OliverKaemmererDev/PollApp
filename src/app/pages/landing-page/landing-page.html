@@ -54,7 +54,8 @@
         <button class="tab" [class.active]="activeFilter() === 'past'" (click)="toggleFilter('past')">Past survey</button>
       </div>
       <div class="sort-dropdown-container">
-        <div class="sort" (click)="toggleDropdown()" [class.open]="isDropdownOpen">
+        <div class="sort" (click)="toggleDropdown()" [class.open]="isDropdownOpen" [class.active]="selectedCategory()">
+
           <span>Sort by categories</span>
           <img src="assets/icons/arrow-dropdown-white.svg" alt="" class="arrow-icon white-arrow">
           <img src="assets/icons/arrow-dropdown-orange.svg" alt="" class="arrow-icon orange-arrow">

@@ -1,12 +1,11 @@
-<div class="create-survey-page">
-  <div class="survey-form-container">
-    <div class="form-header">
-      <div class="header-left">
-        <span class="badge-draft">Draft</span>
+<div class="page-wrapper">
+  <div class="create-survey-page">
+    <div class="survey-form-container">
+      <span class="badge-draft">Draft</span>
+      <div class="form-header">
         <h1>Create new survey</h1>
+        <button class="btn-cancel" (click)="cancel()">Cancel ✕</button>
       </div>
-      <button class="btn-cancel" (click)="cancel()">Cancel ✕</button>
-    </div>
 
     <form [formGroup]="surveyForm" class="survey-form">
       <div class="form-grid">
@@ -36,7 +35,9 @@
             </div>
             <div class="form-group category-group">
               <div class="category-dropdown-container">
-                <div class="category-header" (click)="toggleCategoryDropdown()" [class.open]="isCategoryDropdownOpen">
+                <div class="category-header" (click)="toggleCategoryDropdown()" 
+                     [class.open]="isCategoryDropdownOpen"
+                     [class.active]="surveyForm.get('category')?.value">
                   <span>Choose category</span>
                   <img src="assets/icons/arrow-dropdown-white.svg" alt="Arrow" class="arrow-icon white-arrow">
                   <img src="assets/icons/arrow-dropdown-orange.svg" alt="Arrow" class="arrow-icon orange-arrow">
@@ -84,9 +85,10 @@
 
             <div class="answers-header">
               <label>Answers</label>
-              <label class="checkbox-label">
+              <label class="checkbox-container">
                 <input type="checkbox" formControlName="allowMultiple">
-                Allow multiple answers.
+                <span class="checkmark"></span>
+                <span class="label-text">Allow multiple answers.</span>
               </label>
             </div>
 
@@ -125,15 +127,16 @@
         </div>
 
       </div>
-
-      <div class="form-footer">
-        <button type="button" class="btn-publish" (click)="publish()" [disabled]="isPublishing">
-          <span class="btn-text">Publish</span>
-          <img src="assets/icons/publish-check.svg" alt="Publish" class="btn-icon">
-        </button>
-      </div>
     </form>
+
+    <div class="form-footer">
+      <button type="button" class="btn-publish" (click)="publish()" [disabled]="isPublishing">
+        <span class="btn-text">Publish</span>
+        <img src="assets/icons/publish-check.svg" alt="Publish" class="btn-icon">
+      </button>
+    </div>
   </div>
+</div>
 </div>
 
 <!-- Toast Overlay & Notification -->

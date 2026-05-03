@@ -1,50 +1,55 @@
 :host {
   display: block;
+}
+
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   min-height: 100vh;
-  padding: 40px 100px;
-  overflow-x: hidden;
+  width: 100%;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 .create-survey-page {
+  width: 100%;
   max-width: 1400px;
-  margin: 0 auto;
 }
 
 .survey-form-container {
   background-color: var(--bg-color);
-  border-radius: 24px 140px 24px 24px;
+  border-radius: 8px 140px 8px 8px;
   padding: 60px;
   color: var(--text-light);
   min-height: 800px;
   position: relative;
 }
 
+.badge-draft {
+  background-color: var(--primary-color-hover);
+  color: var(--text-dark);
+  padding: 4px 16px;
+  border-radius: 0px 16px 0px 0px;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
 .form-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 40px;
 
-  .header-left {
-    .badge-draft {
-      background-color: var(--primary-color-hover);
-      color: var(--text-dark);
-      padding: 4px 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 700;
-      display: inline-block;
-      margin-bottom: 12px;
-    }
-
-    h1 {
-      font-family: var(--font-heading);
-      font-size: 56px;
-      color: var(--primary-color);
-      line-height: 1;
-      margin: 0;
-    }
+  h1 {
+    font-family: var(--font-heading);
+    font-size: 56px;
+    color: var(--primary-color);
+    line-height: 1;
+    margin: 0;
   }
 
   .btn-cancel {
@@ -66,7 +71,7 @@
 }
 
 .survey-form {
-  background-color: rgba(255, 255, 255, 0.05); /* Lighter inner container */
+  background-color: #433249;
   border-radius: 24px;
   padding: 40px;
 
@@ -85,7 +90,7 @@
 
     .optional {
       font-weight: 400;
-      color: #aaa;
+      color: var(--text-light);
     }
   }
 
@@ -106,7 +111,7 @@
   }
 
   textarea {
-    resize: vertical;
+    resize: none;
     min-height: 120px;
   }
 
@@ -135,6 +140,8 @@
       color: white;
       cursor: pointer;
       font-size: 16px;
+      padding: 6px 16px;
+      border-radius: 8px;
       font-weight: 600;
       transition: background-color 0.3s ease;
 
@@ -148,8 +155,9 @@
         transition: transform 0.3s ease;
       }
 
-      &:hover, &.open {
-        color: var(--primary-color);
+      &:hover, &.open, &.active {
+        color: var(--text-light);
+        background-color: #55475A;
         
         .white-arrow {
           display: none;
@@ -280,17 +288,64 @@
 
       label { margin: 0; }
 
-      .checkbox-label {
-        font-weight: 400;
-        font-size: 12px;
+      .checkbox-container {
         display: flex;
         align-items: center;
-        gap: 8px;
-        color: #ccc;
+        position: relative;
+        padding-left: 32px;
         cursor: pointer;
+        font-size: 14px;
+        user-select: none;
+        color: #ccc;
 
         input {
+          position: absolute;
+          opacity: 0;
           cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+
+        .checkmark {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0;
+          height: 18px;
+          width: 18px;
+          background-color: transparent;
+          border: 2px solid white;
+          border-radius: 4px;
+          transition: all 0.2s;
+        }
+
+        &:hover input ~ .checkmark {
+          background-color: rgba(255,255,255,0.1);
+        }
+
+        input:checked ~ .checkmark {
+          background-color: var(--primary-color);
+          border-color: var(--primary-color);
+        }
+
+        .checkmark:after {
+          content: "";
+          position: absolute;
+          display: none;
+        }
+
+        input:checked ~ .checkmark:after {
+          display: block;
+        }
+
+        .checkmark:after {
+          left: 5px;
+          top: 1px;
+          width: 4px;
+          height: 8px;
+          border: solid black;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
         }
       }
     }
@@ -365,60 +420,61 @@
       }
     }
   }
+} // Close .survey-form
 
-  .form-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 40px;
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 40px;
 
-    .btn-publish {
-      background-color: var(--primary-color-hover);
-      color: var(--text-dark);
-      font-family: var(--font-button);
-      font-size: 18px;
-      font-weight: 700;
-      padding: 16px 32px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transition: all 0.3s ease;
+  .btn-publish {
+    background-color: var(--primary-color-hover);
+    color: var(--text-dark);
+    font-family: var(--font-button);
+    font-size: 18px;
+    font-weight: 700;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
 
-      .btn-text {
-        white-space: nowrap;
-      }
+    .btn-text {
+      white-space: nowrap;
+    }
+
+    .btn-icon {
+      width: 0;
+      height: 18px;
+      opacity: 0;
+      margin-left: 0;
+      transform: translateX(-10px) rotate(-45deg);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    &:hover:not(:disabled) {
+      background-color: var(--primary-color);
+      padding-right: 24px;
 
       .btn-icon {
-        width: 0;
-        height: 18px;
-        opacity: 0;
-        margin-left: 0;
-        transform: translateX(-10px) rotate(-45deg);
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        width: 24px;
+        opacity: 1;
+        margin-left: 8px;
+        transform: translateX(0) rotate(0);
       }
+    }
 
-      &:hover:not(:disabled) {
-        background-color: var(--primary-color);
-        padding-right: 24px;
-
-        .btn-icon {
-          width: 24px;
-          opacity: 1;
-          margin-left: 8px;
-          transform: translateX(0) rotate(0);
-        }
-      }
-
-      &:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
     }
   }
 }
+ // Close .survey-form-container
 
 @media (max-width: 1024px) {
   .create-survey-page {
