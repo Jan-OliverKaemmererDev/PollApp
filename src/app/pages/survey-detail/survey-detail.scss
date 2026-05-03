@@ -82,14 +82,13 @@
 }
 
 .survey-card {
-  background-color: #f3f0f5;
-  border-radius: 24px;
+  background-color: #F3EFF5;
   border-top-right-radius: 140px;
   padding: 60px;
   color: var(--text-dark);
 
   .badge-published {
-    background-color: var(--primary-color-hover);
+    background-color: var(--primary-color);
     color: var(--text-dark);
     display: inline-block;
     padding: 4px 16px;
@@ -110,7 +109,7 @@
   .survey-title {
     font-family: var(--font-heading);
     font-size: 48px;
-    color: var(--primary-color);
+    color: #EE9236;
     margin-bottom: 24px;
     line-height: 1.1;
   }
@@ -177,6 +176,19 @@
       border: 2px solid var(--text-dark);
       border-radius: 4px;
       transition: all 0.2s;
+
+      &:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 50%;
+        top: 45%;
+        width: 5px;
+        height: 10px;
+        border: solid black;
+        border-width: 0 2.5px 2.5px 0;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
     }
 
     &:hover input ~ .checkmark {
@@ -186,26 +198,10 @@
     input:checked ~ .checkmark {
       background-color: var(--primary-color);
       border-color: var(--primary-color);
-    }
 
-    .checkmark:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
-
-    input:checked ~ .checkmark:after {
-      display: block;
-    }
-
-    .checkbox-container .checkmark:after {
-      left: 6px;
-      top: 2px;
-      width: 5px;
-      height: 10px;
-      border: solid white;
-      border-width: 0 2px 2px 0;
-      transform: rotate(45deg);
+      &:after {
+        display: block;
+      }
     }
   }
 
@@ -244,7 +240,7 @@
     margin-bottom: 16px;
     
     .live {
-      color: var(--primary-color-hover);
+      color: #FFB770;
     }
   }
 
