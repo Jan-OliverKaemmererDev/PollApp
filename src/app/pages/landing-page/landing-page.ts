@@ -44,20 +44,38 @@ export class LandingPage implements OnInit {
       return d;
     }
 
-    // 2. Standard JS-Parsing versuchen
-    let d = new Date(dateStr);
-    if (!isNaN(d.getTime())) return d;
-    
-    // 3. Fallback für deutsches Format DD.MM.YYYY
+    // 2. Fallback für deutsches Format DD.MM.YYYY (Vor Standard-Parsing, da Standard-Parsing DD.MM oft falsch interpretiert)
     const parts = dateStr.split('.');
     if (parts.length === 3) {
       const day = parseInt(parts[0], 10);
       const month = parseInt(parts[1], 10) - 1;
       const year = parts[2].length === 2 ? 2000 + parseInt(parts[2], 10) : parseInt(parts[2], 10);
-      d = new Date(year, month, day);
+      const d = new Date(year, month, day);
+      if (!isNaN(d.getTime())) return d;
     }
-    
+
+    // 3. Standard JS-Parsing versuchen (für YYYY-MM-DD oder YYYY/MM/DD)
+    const d = new Date(dateStr.replace(/\//g, '-')); // Normalisiere / zu - für bessere Kompatibilität
     return d;
+  }
+
+  getEndsInText(dateStr: string): string {
+    if (!dateStr) return '';
+    const endDate = this.parseDate(dateStr);
+    if (isNaN(endDate.getTime())) return dateStr;
+
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+    const end = new Date(endDate);
+    end.setHours(0, 0, 0, 0);
+
+    const diffTime = end.getTime() - now.getTime();
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return 'Ended';
+    if (diffDays === 0) return 'Ends today';
+    if (diffDays === 1) return 'Ends in 1 Day';
+    return `Ends in ${diffDays} Days`;
   }
 
   filteredSurveys = computed(() => {

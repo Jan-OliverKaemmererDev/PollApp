@@ -48,7 +48,9 @@
     </div>
 
     <div class="actions">
-      <button class="btn-complete" (click)="completeSurvey()" [disabled]="hasAnswers()">Complete survey</button>
+      <button class="btn-complete" (click)="completeSurvey()" [disabled]="hasAnswers() || isSubmitting()">
+        {{ isSubmitting() ? 'Submitting...' : 'Complete survey' }}
+      </button>
     </div>
   </section>
 

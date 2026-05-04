@@ -75,4 +75,16 @@ export class SupabaseService {
 
     return newSurvey;
   }
+
+  async updateQuestion(id: string, updates: any) {
+    const { data, error } = await this.supabase
+      .from('questions')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
 }

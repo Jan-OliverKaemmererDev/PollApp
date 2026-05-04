@@ -56,7 +56,8 @@ export class CreateSurvey {
   createAnswer(): FormGroup {
     return this.fb.group({
       label: [''],
-      percentage: [0]
+      percentage: [0],
+      votes: [0]
     });
   }
 
@@ -107,17 +108,41 @@ export class CreateSurvey {
 
     this.isPublishing = true;
     const formValue = this.surveyForm.value;
+    let ends_in = formValue.ends_in || null;
+
+    // Normalisierung des Datumsfalls vorhanden
+    if (ends_in) {
+      const trimmed = ends_in.trim();
+      // Prüfen auf deutsches Format DD.MM.YYYY
+      const germanMatch = trimmed.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
+      if (germanMatch) {
+        const day = germanMatch[1].padStart(2, '0');
+        const month = germanMatch[2].padStart(2, '0');
+        const year = germanMatch[3];
+        ends_in = `${year}-${month}-${day}`;
+      } else {
+        // Prüfen auf YYYY/MM/DD Format
+        const slashMatch = trimmed.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
+        if (slashMatch) {
+          const year = slashMatch[1];
+          const month = slashMatch[2].padStart(2, '0');
+          const day = slashMatch[3].padStart(2, '0');
+          ends_in = `${year}-${month}-${day}`;
+        }
+      }
+    }
 
     const newSurvey = {
       title: formValue.title,
       category: formValue.category,
-      ends_in: formValue.ends_in || null
+      ends_in: ends_in
     };
 
     const newQuestions = formValue.questions.map((q: any) => ({
       question_text: q.question_text,
       subtitle: q.allowMultiple ? 'Allow multiple answers' : null,
-      options: q.options
+      options: q.options,
+      total_votes: 0
     }));
 
     try {

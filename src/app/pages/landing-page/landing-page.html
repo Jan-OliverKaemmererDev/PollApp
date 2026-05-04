@@ -40,7 +40,7 @@
               <div class="card-category">{{survey.category}}</div>
               <h4 class="card-title">{{survey.title}}</h4>
             </div>
-            <div class="badge">Ends in {{survey.ends_in}}</div>
+            <div class="badge">{{getEndsInText(survey.ends_in)}}</div>
           </div>
         } @empty {
           <div class="no-surveys-light">No surveys ending soon.</div>
@@ -80,7 +80,7 @@
             <div class="card-category">{{survey.category}}</div>
             <h4 class="card-title">{{survey.title}}</h4>
           </div>
-          <div class="badge">Ends in {{survey.ends_in}}</div>
+          <div class="badge">{{getEndsInText(survey.ends_in)}}</div>
         </div>
       } @empty {
         <div class="no-surveys">No surveys found in this category.</div>

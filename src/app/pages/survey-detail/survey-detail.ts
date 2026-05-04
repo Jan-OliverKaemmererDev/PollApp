@@ -17,6 +17,7 @@ export class SurveyDetail implements OnInit {
   survey = signal<any>(null);
   questions = signal<any[]>([]);
   hasAnswers = signal<boolean>(false);
+  isSubmitting = signal<boolean>(false);
   selectedOptions = signal<Record<number, string[]>>({}); // Key: question index or ID, Value: array of selected labels
 
   async ngOnInit() {
@@ -63,7 +64,52 @@ export class SurveyDetail implements OnInit {
     return (this.selectedOptions()[questionIndex] || []).includes(optionLabel);
   }
 
-  completeSurvey() {
+  async completeSurvey() {
+    if (this.hasAnswers() || this.isSubmitting()) return;
+    
+    this.isSubmitting.set(true);
+    const currentQuestions = this.questions();
+    const selections = this.selectedOptions();
+    
+    // We update each question that has at least one selection
+    for (let i = 0; i < currentQuestions.length; i++) {
+      const question = currentQuestions[i];
+      const selectedLabels = selections[i] || [];
+      
+      if (selectedLabels.length === 0) continue;
+
+      // Increment total participants/votes for this question
+      const newTotalVotes = (question.total_votes || 0) + 1;
+      
+      // Update each option's vote count and percentage
+      const newOptions = question.options.map((opt: any) => {
+        const isSelected = selectedLabels.includes(opt.label);
+        const currentVotes = opt.votes || 0;
+        const newVotes = isSelected ? currentVotes + 1 : currentVotes;
+        
+        return {
+          ...opt,
+          votes: newVotes,
+          percentage: Math.round((newVotes / newTotalVotes) * 100)
+        };
+      });
+
+      try {
+        await this.supabaseService.updateQuestion(question.id, {
+          options: newOptions,
+          total_votes: newTotalVotes
+        });
+        
+        // Update local state
+        question.options = newOptions;
+        question.total_votes = newTotalVotes;
+      } catch (error) {
+        console.error(`Error updating question ${question.id}:`, error);
+      }
+    }
+
     this.hasAnswers.set(true);
+    this.isSubmitting.set(false);
+    this.questions.set([...currentQuestions]);
   }
 }
