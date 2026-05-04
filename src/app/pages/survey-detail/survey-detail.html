@@ -33,14 +33,14 @@
         <p class="question-subtitle" *ngIf="q.subtitle">{{q.subtitle}}</p>
         
         <div class="options-list">
-          <div class="option-item" *ngFor="let opt of q.options">
+          <div class="option-item" *ngFor="let opt of q.options; let j = index">
             <label class="checkbox-container">
               <input type="checkbox" 
                      [disabled]="hasAnswers()"
                      [checked]="isOptionSelected(i, opt.label)"
                      (change)="toggleOption(i, opt.label)">
               <span class="checkmark"></span>
-              <span class="option-label">{{opt.label}}</span>
+              <span class="option-label"><strong>{{getAlphabetLetter(j)}}</strong> {{stripLetterPrefix(opt.label)}}</span>
             </label>
           </div>
         </div>
@@ -69,13 +69,13 @@
         <div class="results-list">
           <div class="result-block" *ngFor="let q of questions(); let i = index">
             <h4 class="result-question-title">{{i + 1}}. {{q.question_text}}</h4>
-            <div class="result-item" *ngFor="let opt of q.options">
-              <div class="result-label-row">
-                <span class="opt-id">{{opt.label.split('.')[0]}}</span>
+            <div class="result-item" *ngFor="let opt of q.options; let j = index">
+              <div class="bar-with-percentage">
+                <span class="opt-id">{{getAlphabetLetter(j).replace('.', '')}}</span>
+                <div class="progress-bar-container">
+                  <div class="progress-bar" [style.width.%]="opt.percentage"></div>
+                </div>
                 <span class="opt-percentage">{{opt.percentage}}%</span>
-              </div>
-              <div class="progress-bar-container">
-                <div class="progress-bar" [style.width.%]="opt.percentage"></div>
               </div>
             </div>
           </div>

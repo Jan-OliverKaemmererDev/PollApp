@@ -112,4 +112,13 @@ export class SurveyDetail implements OnInit {
     this.isSubmitting.set(false);
     this.questions.set([...currentQuestions]);
   }
+
+  getAlphabetLetter(index: number): string {
+    return String.fromCharCode(65 + index) + '.';
+  }
+
+  stripLetterPrefix(label: string): string {
+    if (!label) return '';
+    return label.replace(/^[A-Z]\.\s*/, '');
+  }
 }
