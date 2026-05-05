@@ -310,17 +310,4 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .survey-detail-container {
-    grid-template-columns: 1fr;
-    padding: 0 40px 40px;
-  }
-  
-  .main-header {
-    padding: 24px 40px;
-  }
-
-  .survey-card .questions-grid {
-    grid-template-columns: 1fr;
-  }
-}
+@import './mobile-survey-detail/mobile-survey-detail.scss';

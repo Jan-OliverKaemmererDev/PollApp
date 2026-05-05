@@ -18,6 +18,7 @@ export class SurveyDetail implements OnInit {
   questions = signal<any[]>([]);
   hasAnswers = signal<boolean>(false);
   isSubmitting = signal<boolean>(false);
+  isResultsVisible = signal<boolean>(false); // Default to closed, especially for mobile
   selectedOptions = signal<Record<number, string[]>>({}); // Key: question index or ID, Value: array of selected labels
 
   async ngOnInit() {

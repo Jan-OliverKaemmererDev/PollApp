@@ -14,7 +14,14 @@
 <main class="survey-detail-container">
   <section class="survey-card" *ngIf="survey()">
     <div class="survey-header">
-      <div class="badge-published">Published</div>
+      <div class="header-top-row">
+        <div class="badge-published">Published</div>
+        <button class="btn-close-mobile" routerLink="/">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
       <div class="survey-info">
         <span class="date">Ends on 01.09.2025</span>
         <span class="category">Category: {{survey().category}}</span>
@@ -49,12 +56,23 @@
 
     <div class="actions">
       <button class="btn-complete" (click)="completeSurvey()" [disabled]="hasAnswers() || isSubmitting()">
-        {{ isSubmitting() ? 'Submitting...' : 'Complete survey' }}
+        <span class="btn-text">{{ isSubmitting() ? 'Submitting...' : 'Complete' }}</span>
+        <svg class="complete-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </button>
     </div>
   </section>
 
-  <aside class="results-aside">
+  <div class="results-toggle-mobile" (click)="isResultsVisible.set(!isResultsVisible())" [class.active]="isResultsVisible()">
+    <span>{{ isResultsVisible() ? 'Close results' : 'Show results' }}</span>
+    <div class="icon-wrapper" [class.open]="isResultsVisible()">
+      <img src="assets/icons/arrow-dropdown-black.svg" alt="" class="arrow-black">
+      <img src="assets/icons/arrow-dropdown-orange.svg" alt="" class="arrow-orange">
+    </div>
+  </div>
+
+  <aside class="results-aside" [class.visible-mobile]="isResultsVisible()">
     <h2 class="results-title">Survey results <span class="live">LIVE</span></h2>
     
     <div class="results-content">
