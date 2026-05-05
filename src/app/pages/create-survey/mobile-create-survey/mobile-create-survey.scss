@@ -104,10 +104,11 @@
       padding: 8px 0;
       border-bottom: 1px solid white;
     }
-  }
-
-  .add-question-block {
-    justify-content: center !important;
+    .add-question-block {
+      display: flex;
+      justify-content: center !important;
+      width: 100%;
+    }
   }
 
   .form-footer {
@@ -116,7 +117,7 @@
     
     .btn-publish {
       width: auto;
-      min-width: 180px;
+      min-width: 146px;
       padding: 14px 24px;
       
       /* Disable slide-in animation, show checkmark always */

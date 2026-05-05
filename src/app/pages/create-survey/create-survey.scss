@@ -63,6 +63,9 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
     &:hover {
       background-color: #AE7E5A;
@@ -476,9 +479,6 @@
 }
  // Close .survey-form-container
 
-.cancel-icon {
-  display: none;
-}
 
 @import './mobile-create-survey/mobile-create-survey.scss';
 
