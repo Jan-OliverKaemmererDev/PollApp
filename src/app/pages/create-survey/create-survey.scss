@@ -476,15 +476,11 @@
 }
  // Close .survey-form-container
 
-@media (max-width: 1024px) {
-  .create-survey-page {
-    padding: 20px;
-  }
-
-  .survey-form .form-grid {
-    grid-template-columns: 1fr;
-  }
+.cancel-icon {
+  display: none;
 }
+
+@import './mobile-create-survey/mobile-create-survey.scss';
 
 /* Toast Overlay */
 .toast-overlay {
