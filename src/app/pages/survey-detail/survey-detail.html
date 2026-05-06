@@ -76,14 +76,14 @@
     <h2 class="results-title">Survey results <span class="live">LIVE</span></h2>
     
     <div class="results-content">
-      <ng-container *ngIf="!hasAnswers()">
+      <ng-container *ngIf="!hasAnyAnswers()">
         <p class="no-results-msg">Results will be shown here after participants complete the survey.</p>
         <div class="empty-state">
           <span>There are no answears yet.</span>
         </div>
       </ng-container>
 
-      <ng-container *ngIf="hasAnswers()">
+      <ng-container *ngIf="hasAnyAnswers()">
         <div class="results-list">
           <div class="result-block" *ngFor="let q of questions(); let i = index">
             <h4 class="result-question-title">{{i + 1}}. {{q.question_text}}</h4>
