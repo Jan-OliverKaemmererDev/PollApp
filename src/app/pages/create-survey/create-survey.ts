@@ -69,10 +69,8 @@ export class CreateSurvey {
     if (this.questions.length > 1) {
       this.questions.removeAt(index);
     } else {
-      // If it's the only question, clear its content
       const firstQ = this.questions.at(0) as FormGroup;
       firstQ.patchValue({ question_text: '', allowMultiple: false });
-      // Reset answers to 2 empty answers
       const answersArray = firstQ.get('options') as FormArray;
       answersArray.clear();
       answersArray.push(this.createAnswer());
@@ -89,7 +87,6 @@ export class CreateSurvey {
     if (answers.length > 2) {
       answers.removeAt(answerIndex);
     } else {
-      // Clear the content instead of removing if we only have 2 answers
       answers.at(answerIndex).patchValue({ label: '', percentage: 0 });
     }
   }
@@ -110,10 +107,8 @@ export class CreateSurvey {
     const formValue = this.surveyForm.value;
     let ends_in = formValue.ends_in || null;
 
-    // Normalisierung des Datumsfalls vorhanden
     if (ends_in) {
       const trimmed = ends_in.trim();
-      // Prüfen auf deutsches Format DD.MM.YYYY
       const germanMatch = trimmed.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/);
       if (germanMatch) {
         const day = germanMatch[1].padStart(2, '0');
@@ -121,7 +116,6 @@ export class CreateSurvey {
         const year = germanMatch[3];
         ends_in = `${year}-${month}-${day}`;
       } else {
-        // Prüfen auf YYYY/MM/DD Format
         const slashMatch = trimmed.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
         if (slashMatch) {
           const year = slashMatch[1];
