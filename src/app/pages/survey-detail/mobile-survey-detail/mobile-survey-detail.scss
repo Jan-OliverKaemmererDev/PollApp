@@ -1,4 +1,5 @@
 /* Mobile specific styles for the survey detail page */
+@mixin styles() {
 
 @media (max-width: 992px) {
   .main-header {
@@ -169,4 +170,5 @@
   .results-aside .results-title {
     font-size: 24px;
   }
+}
 }

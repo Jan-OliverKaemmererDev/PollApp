@@ -1,4 +1,4 @@
-
+@use './mobile-create-survey/mobile-create-survey.scss' as mobile;
 :host {
   display: block;
 }
@@ -558,4 +558,4 @@
   }
 }
 
-@import './mobile-create-survey/mobile-create-survey.scss';
+@include mobile.styles();

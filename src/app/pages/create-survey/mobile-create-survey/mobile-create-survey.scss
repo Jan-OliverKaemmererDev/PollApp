@@ -1,4 +1,5 @@
 /* Mobile specific styles for the create survey page */
+@mixin styles() {
 
 .mobile-logo-header {
   display: none;
@@ -161,4 +162,5 @@
   .survey-form {
     padding: 20px 12px;
   }
+}
 }
