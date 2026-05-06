@@ -16,7 +16,7 @@ export class LandingPage implements OnInit {
 
   isDropdownOpen = false;
   selectedCategory = signal<string | null>(null);
-  activeFilter = signal<'active' | 'past' | null>(null);
+  activeFilter = signal<'active' | 'past'>('active');
   categories = [
     'Team Activities',
     'Health & Wellness',
@@ -35,12 +35,17 @@ export class LandingPage implements OnInit {
    */
   private parseDate(dateStr: string): Date {
     if (!dateStr) return new Date('invalid');
-    const normalized = dateStr.toLowerCase().trim();
+    let normalized = dateStr.toLowerCase().trim();
+    if (normalized.startsWith('ends on ')) {
+      normalized = normalized.substring(8).trim();
+    } else if (normalized.startsWith('ends in ')) {
+      normalized = normalized.substring(8).trim();
+    }
     const relativeDate = this.parseRelativeDate(normalized);
     if (relativeDate) return relativeDate;
     const germanDate = this.parseGermanDate(normalized);
     if (germanDate) return germanDate;
-    return new Date(dateStr.replace(/\//g, '-'));
+    return new Date(normalized.replace(/\//g, '-'));
   }
 
   /**
@@ -136,8 +141,7 @@ export class LandingPage implements OnInit {
    * @param filter The active or past filter.
    * @returns The filtered list of surveys.
    */
-  private filterByStatus(list: any[], filter: 'active' | 'past' | null): any[] {
-    if (!filter) return list;
+  private filterByStatus(list: any[], filter: 'active' | 'past'): any[] {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
     return list.filter(s => this.matchesStatusFilter(s, filter, now));
@@ -226,6 +230,6 @@ export class LandingPage implements OnInit {
    * @param filter The filter to toggle.
    */
   toggleFilter(filter: 'active' | 'past') {
-    this.activeFilter.update(current => current === filter ? null : filter);
+    this.activeFilter.set(filter);
   }
 }

@@ -128,6 +128,7 @@ export class CreateSurvey {
 
     const newSurvey = {
       title: formValue.title,
+      description: formValue.description,
       category: formValue.category,
       ends_in: ends_in
     };

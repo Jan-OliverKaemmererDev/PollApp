@@ -29,6 +29,30 @@ export class SurveyDetail implements OnInit {
   });
 
   /**
+   * Formats the end date string for display.
+   * @param dateStr The raw date string from the database.
+   * @returns Formatted date string starting with 'Ends on'.
+   */
+  getFormattedDate(dateStr: string): string {
+    if (!dateStr) return '';
+    let normalized = dateStr.trim();
+    let lower = normalized.toLowerCase();
+    if (lower.startsWith('ends on ')) {
+      normalized = normalized.substring(8).trim();
+    } else if (lower.startsWith('ends in ')) {
+      normalized = normalized.substring(8).trim();
+    }
+    
+    // Check if it's YYYY-MM-DD and convert to DD.MM.YYYY
+    const isoMatch = normalized.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (isoMatch) {
+      normalized = `${isoMatch[3]}.${isoMatch[2]}.${isoMatch[1]}`;
+    }
+    
+    return `Ends on ${normalized}`;
+  }
+
+  /**
    * Initializes the component by fetching survey and question data.
    */
   async ngOnInit() {

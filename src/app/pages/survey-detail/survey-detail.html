@@ -23,12 +23,12 @@
         </button>
       </div>
       <div class="survey-info">
-        <span class="date">Ends on 01.09.2025</span>
+        <span class="date">{{getFormattedDate(survey().ends_in)}}</span>
         <span class="category">Category: {{survey().category}}</span>
       </div>
       <h1 class="survey-title">{{survey().title}}</h1>
       <p class="survey-description">
-        We want to create team activities that everyone will enjoy – share your preferences and ideas in our survey to help us plan better experiences together.
+        {{survey().description}}
       </p>
     </div>
 

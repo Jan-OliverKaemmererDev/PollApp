@@ -409,6 +409,16 @@
     cursor: pointer;
   }
 
+  &.disabled-card {
+    cursor: default;
+    pointer-events: none;
+    
+    &:hover {
+      background-color: var(--card-dark);
+      cursor: default;
+    }
+  }
+
 }
 
 .no-surveys-light {
