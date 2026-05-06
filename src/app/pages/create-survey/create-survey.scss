@@ -1,3 +1,4 @@
+@use './mobile-create-survey/mobile-create-survey.scss';
 :host {
   display: block;
 }
@@ -480,7 +481,7 @@
  // Close .survey-form-container
 
 
-@import './mobile-create-survey/mobile-create-survey.scss';
+
 
 /* Toast Overlay */
 .toast-overlay {

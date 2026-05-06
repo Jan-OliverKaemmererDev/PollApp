@@ -1,3 +1,4 @@
+@use './mobile-survey-detail/mobile-survey-detail.scss';
 :host {
   display: block;
   background-color: white;
@@ -310,4 +311,4 @@
   }
 }
 
-@import './mobile-survey-detail/mobile-survey-detail.scss';
+
