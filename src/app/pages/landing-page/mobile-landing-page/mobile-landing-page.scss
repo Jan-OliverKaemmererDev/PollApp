@@ -140,10 +140,11 @@
     }
     
     .sort-dropdown-container {
-      width: 100%;
+      align-self: flex-start !important;
+      margin-left: 0 !important;
       
       .sort {
-        width: fit-content;
+        margin-left: 0 !important;
         padding: 8px 16px;
         font-size: 16px;
         
@@ -164,11 +165,10 @@
         left: 0;
         top: calc(100% + 4px);
       }
-      
+
       .dropdown-menu {
-        width: 200px;
-        right: auto;
         left: 0;
+        right: auto;
       }
     }
   }

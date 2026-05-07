@@ -1,5 +1,11 @@
 <div class="mobile-logo-header">
-  <img src="assets/icons/logo-purple.svg" alt="Poll App" class="logo-img" />
+  <img
+    src="assets/icons/logo-purple.svg"
+    alt="Poll App"
+    class="logo-img"
+    (click)="cancel()"
+    style="cursor: pointer"
+  />
 </div>
 
 <div class="page-wrapper">
@@ -64,7 +70,7 @@
                       class="arrow-icon orange-arrow"
                     />
                   </div>
-                  <div class="selected-category-text" *ngIf="surveyForm.get('category')?.value">
+                  <div class="selected-category-text" *ngIf="surveyForm.get('category')?.value && !isCategoryDropdownOpen">
                     {{ surveyForm.get('category')?.value }}
                   </div>
                   <div class="dropdown-menu" *ngIf="isCategoryDropdownOpen">

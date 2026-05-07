@@ -68,19 +68,22 @@
             @for(category of categories; track category) {
               <div class="dropdown-item" (click)="selectCategory(category)">{{category}}</div>
             }
+            <div class="dropdown-item show-all" (click)="selectCategory(null)">Show all...</div>
           </div>
         }
       </div>
     </div>
     
-    <div class="vertical-list">
+    <div class="vertical-list" (scroll)="onListScroll()" [class.is-scrolling]="isScrolling()">
       @for(survey of filteredSurveys(); track survey.id) {
         <div class="card card-dark" [class.disabled-card]="activeFilter() === 'past'" [routerLink]="activeFilter() === 'active' ? ['/survey', survey.id] : null">
           <div class="card-content">
             <div class="card-category">{{survey.category}}</div>
             <h4 class="card-title">{{survey.title}}</h4>
           </div>
-          <div class="badge">{{getEndsInText(survey.ends_in)}}</div>
+          @if(survey.ends_in) {
+            <div class="badge">{{getEndsInText(survey.ends_in)}}</div>
+          }
         </div>
       } @empty {
         <div class="no-surveys">No surveys found in this category.</div>

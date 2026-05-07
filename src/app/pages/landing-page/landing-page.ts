@@ -15,6 +15,8 @@ export class LandingPage implements OnInit {
   private router = inject(Router);
 
   isDropdownOpen = false;
+  isScrolling = signal(false);
+  private scrollTimeout: any;
   selectedCategory = signal<string | null>(null);
   activeFilter = signal<'active' | 'past'>('active');
   categories = [
@@ -220,7 +222,7 @@ export class LandingPage implements OnInit {
    * Selects a category and closes the dropdown.
    * @param category The selected category.
    */
-  selectCategory(category: string) {
+  selectCategory(category: string | null) {
     this.selectedCategory.set(category);
     this.isDropdownOpen = false;
   }
@@ -231,5 +233,16 @@ export class LandingPage implements OnInit {
    */
   toggleFilter(filter: 'active' | 'past') {
     this.activeFilter.set(filter);
+  }
+
+  /**
+   * Handles the scroll event on the vertical list to trigger the rubber scrollbar effect.
+   */
+  onListScroll() {
+    this.isScrolling.set(true);
+    clearTimeout(this.scrollTimeout);
+    this.scrollTimeout = setTimeout(() => {
+      this.isScrolling.set(false);
+    }, 150);
   }
 }

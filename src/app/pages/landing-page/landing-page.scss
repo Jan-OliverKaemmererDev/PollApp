@@ -335,6 +335,14 @@
         &:hover {
           background-color: var(--card-light-hover);
         }
+
+        &.show-all {
+          border-top: 1px solid #eee;
+          font-weight: 600;
+          color: var(--primary-color);
+          margin-top: 4px;
+          padding-top: 10px;
+        }
       }
     }
   }
@@ -358,7 +366,12 @@
   }
   &::-webkit-scrollbar-thumb {
     background: url('/assets/icons/scroll-bar.svg') no-repeat center;
-    background-size: contain;
+    background-size: 100% 100%;
+    transition: background-size 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  &.is-scrolling::-webkit-scrollbar-thumb {
+    background-size: 100% 40%;
   }
 
 
