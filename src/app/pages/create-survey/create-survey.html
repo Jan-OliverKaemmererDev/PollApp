@@ -199,7 +199,7 @@
       </form>
 
       <div class="form-footer">
-        <button type="button" class="btn-publish" (click)="publish()" [disabled]="isPublishing">
+        <button type="button" class="btn-publish" (click)="publish()" [disabled]="isPublishing || surveyForm.invalid">
           <span class="btn-text">Publish</span>
           <img src="assets/icons/publish-check.svg" alt="Publish" class="btn-icon" />
         </button>

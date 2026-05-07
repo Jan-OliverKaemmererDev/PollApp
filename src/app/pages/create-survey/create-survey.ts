@@ -72,7 +72,7 @@ export class CreateSurvey {
    */
   createAnswer(): FormGroup {
     return this.fb.group({
-      label: [''],
+      label: ['', Validators.required],
       percentage: [0],
       votes: [0]
     });
