@@ -1,11 +1,17 @@
-@use './mobile-landing-page/mobile-landing-page.scss';
+/* ==========================================================================
+   LANDING PAGE STYLES
+   ========================================================================== */
 
+@use './mobile-landing-page/mobile-landing-page.scss' as mobile;
+
+/* --- Layout --- */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
+/* --- Header --- */
 .header {
   padding: 32px 0;
   
@@ -14,6 +20,7 @@
   }
 }
 
+/* --- Hero Section --- */
 .hero {
   display: flex;
   align-items: center;
@@ -72,6 +79,7 @@
   }
 }
 
+/* --- Buttons --- */
 .btn-primary {
   background-color: var(--primary-color-hover);
   color: var(--text-dark);
@@ -117,6 +125,7 @@
   }
 }
 
+/* --- Surveys Section --- */
 .surveys-section {
   display: flex;
   flex-direction: column;
@@ -134,6 +143,7 @@
   }
 }
 
+/* --- Ending Soon Section --- */
 .ending-soon {
   width: 100%;
   margin-bottom: 64px;
@@ -152,15 +162,15 @@
     width: 100%;
     overflow-x: auto;
     padding-bottom: 16px;
-
-    /* Hide scrollbar */
     scrollbar-width: none;
+    
     &::-webkit-scrollbar {
       display: none;
     }
   }
 }
 
+/* --- Card Components --- */
 .card {
   position: relative;
   
@@ -215,7 +225,6 @@
     transition: background-color 0.3s ease;
   }
 
-
   &:hover {
     background-color: var(--card-light-hover);
     cursor: pointer;
@@ -224,16 +233,72 @@
       background-color: #FFB770;
     }
   }
-
 }
 
+.card-dark {
+  background-color: var(--card-dark);
+  border-radius: 4px;
+  border-top-right-radius: 64px;
+  padding: 24px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+
+  .card-content {
+    width: 100%;
+  }
+
+  .badge {
+    align-self: flex-end;
+    background-color: #ffcc99;
+    color: var(--text-dark);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 0px 16px 0px 0px !important;
+    border-top-right-radius: 12px;
+  }
+
+  .card-category {
+    font-size: 14px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 24px;
+    color: white;
+    line-height: 1.2;
+  }
+
+  &:hover {
+    background-color: var(--card-dark-hover);
+    cursor: pointer;
+  }
+
+  &.disabled-card {
+    cursor: default;
+    pointer-events: none;
+    
+    &:hover {
+      background-color: var(--card-dark);
+      cursor: default;
+    }
+  }
+}
+
+/* --- Survey List Header --- */
 .survey-list-header {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 32px;
-
 
   .tabs {
     display: flex;
@@ -284,7 +349,6 @@
       }
 
       &:hover, &.open, &.active {
-
         background-color: var(--card-dark);
         
         .white-arrow {
@@ -348,6 +412,7 @@
   }
 }
 
+/* --- Vertical Scroll List --- */
 .vertical-list {
   width: 100%;
   display: grid;
@@ -357,7 +422,6 @@
   overflow-y: auto;
   padding-right: 16px;
 
-  /* Custom scrollbar */
   &::-webkit-scrollbar {
     width: 12px;
   }
@@ -373,68 +437,9 @@
   &.is-scrolling::-webkit-scrollbar-thumb {
     background-size: 100% 40%;
   }
-
-
 }
 
-.card-dark {
-  background-color: var(--card-dark);
-  border-radius: 4px;
-  border-top-right-radius: 64px;
-  padding: 24px 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
-  transition: all 0.3s ease;
-  position: relative;
-
-  .card-content {
-    width: 100%;
-  }
-
-  .badge {
-    align-self: flex-end;
-    background-color: #ffcc99;
-    color: var(--text-dark);
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 0px 16px 0px 0px !important;
-    border-top-right-radius: 12px;
-  }
-
-  .card-category {
-    font-size: 14px;
-    color: var(--primary-color);
-    margin-bottom: 8px;
-  }
-
-  .card-title {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 24px;
-    color: white;
-    line-height: 1.2;
-  }
-
-  &:hover {
-    background-color: var(--card-dark-hover);
-    cursor: pointer;
-  }
-
-  &.disabled-card {
-    cursor: default;
-    pointer-events: none;
-    
-    &:hover {
-      background-color: var(--card-dark);
-      cursor: default;
-    }
-  }
-
-}
-
+/* --- Empty States --- */
 .no-surveys-light {
   color: rgba(255, 255, 255, 0.8);
   font-size: 18px;
@@ -449,4 +454,5 @@
   text-align: center;
 }
 
-
+/* --- Mobile Override --- */
+@include mobile.styles();

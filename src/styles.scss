@@ -1,3 +1,8 @@
+/* ==========================================================================
+   GLOBAL STYLES
+   ========================================================================== */
+
+/* --- Fonts --- */
 @font-face {
   font-family: 'Nerko One';
   src: url('/fonts/Nerko_One/NerkoOne-Regular.ttf') format('truetype');
@@ -19,6 +24,7 @@
   font-style: normal;
 }
 
+/* --- Global Variables --- */
 :root {
   --bg-color: #322938;
   --text-light: #ffffff;
@@ -34,6 +40,7 @@
   --font-button: 'Nokora', sans-serif;
 }
 
+/* --- Base Resets --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -48,6 +55,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* --- Typography --- */
 h1, h2 {
   font-family: var(--font-heading);
   font-weight: normal;
@@ -62,6 +70,7 @@ p {
   font-family: var(--font-body);
 }
 
+/* --- Element Defaults --- */
 button {
   font-family: var(--font-button);
   cursor: pointer;
