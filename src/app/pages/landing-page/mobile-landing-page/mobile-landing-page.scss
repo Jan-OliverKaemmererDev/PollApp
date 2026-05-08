@@ -165,14 +165,11 @@
           }
         }
         
-        .selected-category {
-          left: 0;
-          top: calc(100% + 4px);
-        }
-
         .dropdown-menu {
           left: 0;
           right: auto;
+          width: max-content;
+          min-width: 100%;
         }
       }
     }

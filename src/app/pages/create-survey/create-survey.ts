@@ -249,6 +249,17 @@ export class CreateSurvey {
   }
 
   /**
+   * Restricts input for the date field to numbers, dots, and slashes.
+   * @param event The input event.
+   */
+  restrictDateInput(event: any) {
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+    input.value = value.replace(/[^0-9./]/g, '');
+    this.surveyForm.get('ends_in')?.setValue(input.value, { emitEvent: false });
+  }
+
+  /**
    * Closes the success toast and navigates home.
    */
   closeToast() {

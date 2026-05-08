@@ -113,15 +113,27 @@
     width: 100%;
     padding: 12px 16px;
     border-radius: 6px 20px 6px 6px;
-    border: none;
+    border: 1px solid transparent;
     background-color: white;
     color: var(--text-dark);
     font-family: var(--font-body);
     font-size: 16px;
+    transition: all 0.3s ease;
+
+    &::placeholder {
+      color: #9E9E9E;
+    }
 
     &:focus {
       outline: none;
       background-color: #FEE9D4;
+      box-shadow: none !important;
+      border-color: transparent !important;
+    }
+
+    &.ng-invalid.ng-touched:not(:focus) {
+      box-shadow: inset 0 0 8px rgba(255, 0, 0, 0.4) !important;
+      border-color: rgba(255, 0, 0, 0.5) !important;
     }
   }
 
@@ -490,9 +502,20 @@
       }
     }
 
-    &:disabled {
+    &:disabled, &.disabled-state {
       opacity: 0.7;
       cursor: not-allowed;
+      background-color: var(--primary-color-hover);
+      
+      &:hover {
+        padding-right: 32px;
+        background-color: var(--primary-color-hover);
+        
+        .btn-icon {
+          width: 0;
+          opacity: 0;
+        }
+      }
     }
   }
 }

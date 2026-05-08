@@ -27,7 +27,7 @@
             <div class="form-group">
               <label>Survey name</label>
               <div class="input-with-delete">
-                <input type="text" formControlName="title" />
+                <input type="text" formControlName="title" placeholder="Type name here..." />
                 <button type="button" class="btn-icon-only" (click)="clearField('title')">
                   <img src="assets/icons/delete.svg" alt="Delete" class="icon-default" />
                   <img src="assets/icons/delete-hover.svg" alt="Delete Hover" class="icon-hover" />
@@ -39,7 +39,7 @@
               <div class="form-group">
                 <label>Set end date <span class="optional">(optional)</span></label>
                 <div class="input-with-delete">
-                  <input type="text" formControlName="ends_in" />
+                  <input type="text" formControlName="ends_in" placeholder="e.g. 01.01.2026" (input)="restrictDateInput($event)" />
                   <button type="button" class="btn-icon-only" (click)="clearField('ends_in')">
                     <img src="assets/icons/delete.svg" alt="Delete" class="icon-default" />
                     <img
@@ -92,7 +92,7 @@
             <div class="form-group">
               <label>Describing text <span class="optional">(optional)</span></label>
               <div class="input-with-delete">
-                <textarea formControlName="description"></textarea>
+                <textarea formControlName="description" placeholder="Type text here..."></textarea>
                 <button
                   type="button"
                   class="btn-icon-only textarea-btn"
@@ -120,7 +120,7 @@
                 </button>
               </div>
               <div class="input-with-delete">
-                <input type="text" formControlName="question_text" />
+                <input type="text" formControlName="question_text" placeholder="Type question here..." />
               </div>
 
               <div class="answers-header">
@@ -140,7 +140,7 @@
                 >
                   <span class="answer-letter">{{ getAlphabetLetter(j) }}</span>
                   <div class="input-with-delete">
-                    <input type="text" formControlName="label" />
+                    <input type="text" formControlName="label" placeholder="Type answer here..." />
                     <button type="button" class="btn-icon-only" (click)="removeAnswer(i, j)">
                       <img src="assets/icons/delete.svg" alt="Delete" class="icon-default" />
                       <img
@@ -199,7 +199,7 @@
       </form>
 
       <div class="form-footer">
-        <button type="button" class="btn-publish" (click)="publish()" [disabled]="isPublishing || surveyForm.invalid">
+        <button type="button" class="btn-publish" (click)="publish()" [class.disabled-state]="isPublishing || surveyForm.invalid">
           <span class="btn-text">Publish</span>
           <img src="assets/icons/publish-check.svg" alt="Publish" class="btn-icon" />
         </button>

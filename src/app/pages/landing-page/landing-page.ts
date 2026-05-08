@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { Component, inject, OnInit, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupabaseService } from '../../shared/services/supabase';
 import { RouterLink, Router } from '@angular/router';
@@ -13,6 +13,15 @@ import { RouterLink, Router } from '@angular/router';
 export class LandingPage implements OnInit {
   private supabaseService = inject(SupabaseService);
   private router = inject(Router);
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const isDropdownClick = target.closest('.sort-dropdown-container');
+    if (!isDropdownClick && this.isDropdownOpen) {
+      this.isDropdownOpen = false;
+    }
+  }
 
   isDropdownOpen = false;
   isScrolling = signal(false);

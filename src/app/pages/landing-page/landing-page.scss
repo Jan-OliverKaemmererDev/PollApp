@@ -366,20 +366,12 @@
       }
     }
 
-    .selected-category {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 16px;
-      color: var(--primary-color);
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
     .dropdown-menu {
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
-      width: 100%;
+      min-width: 200px;
+      width: max-content;
       background-color: white;
       color: var(--text-dark);
       border-radius: 8px;

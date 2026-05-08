@@ -56,13 +56,10 @@
       <div class="sort-dropdown-container">
         <div class="sort" (click)="toggleDropdown()" [class.open]="isDropdownOpen" [class.active]="selectedCategory()">
 
-          <span>Sort by categories</span>
+          <span>{{ selectedCategory() || 'Sort by categories' }}</span>
           <img src="assets/icons/arrow-dropdown-white.svg" alt="" class="arrow-icon white-arrow">
           <img src="assets/icons/arrow-dropdown-orange.svg" alt="" class="arrow-icon orange-arrow">
         </div>
-        @if(selectedCategory()) {
-          <div class="selected-category">{{selectedCategory()}}</div>
-        }
         @if(isDropdownOpen) {
           <div class="dropdown-menu">
             @for(category of categories; track category) {
