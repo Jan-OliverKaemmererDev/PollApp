@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, ViewEncapsulation } from '@angula
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SupabaseService } from '../../shared/services/supabase';
+import { FirebaseService } from '../../shared/services/firebase';
 
 @Component({
   selector: 'app-create-survey',
@@ -14,7 +14,7 @@ import { SupabaseService } from '../../shared/services/supabase';
 })
 export class CreateSurvey {
   private fb = inject(FormBuilder);
-  private supabaseService = inject(SupabaseService);
+  private supabaseService = inject(FirebaseService);
   private router = inject(Router);
   private cdr = inject(ChangeDetectorRef);
 

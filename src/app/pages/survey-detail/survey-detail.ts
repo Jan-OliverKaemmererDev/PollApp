@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { SupabaseService } from '../../shared/services/supabase';
+import { FirebaseService } from '../../shared/services/firebase';
 
 @Component({
   selector: 'app-survey-detail',
@@ -12,7 +12,7 @@ import { SupabaseService } from '../../shared/services/supabase';
 })
 export class SurveyDetail implements OnInit {
   private route = inject(ActivatedRoute);
-  private supabaseService = inject(SupabaseService);
+  private supabaseService = inject(FirebaseService);
 
   survey = signal<any>(null);
   questions = signal<any[]>([]);

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal, computed, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SupabaseService } from '../../shared/services/supabase';
+import { FirebaseService } from '../../shared/services/firebase';
 import { RouterLink, Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { RouterLink, Router } from '@angular/router';
   styleUrl: './landing-page.scss',
 })
 export class LandingPage implements OnInit {
-  private supabaseService = inject(SupabaseService);
+  private supabaseService = inject(FirebaseService);
   private router = inject(Router);
 
   @HostListener('document:click', ['$event'])

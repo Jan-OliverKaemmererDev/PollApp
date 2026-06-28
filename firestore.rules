@@ -1,0 +1,12 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // For a simple public polling app, we allow read/write to all documents.
+    // In a production app, you would restrict writes to authenticated users 
+    // or validate the data being written.
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
